@@ -1,5 +1,5 @@
 body{
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Varela Round';
 
   overflow: hidden;
   position: absolute;
@@ -9,10 +9,10 @@ body{
   justify-content: center;
   align-items: center;
 
-  background: red;
+  background: black;
 }
 
 h1 {
-  color: blue;
+  color: white;
   font-size: 40vh;
 }
