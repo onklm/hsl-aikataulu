@@ -4,16 +4,20 @@ import ReactDOM from 'react-dom';
 import './style.css';
 
 function App() {
-  const [number1, setNumber1] = React.useState();
-  const [number2, setNumber2] = React.useState();
+  const [amountWater, setAmountWater] = React.useState();
+
+  const calculateCoffeeAmount = () => {
+    return 0.06 * amountWater;
+  };
 
   return (
     <div>
-      <label for="amountWater">veden määrä</label>
-      <input name="amountWater" value={number1} onChange={event => setNumber1(event.target.value)} />
+      <label htmlFor="amountWater">Veden määrä</label>
+      <input name="amountWater" value={amountWater} onChange={event => setAmountWater(event.target.value)} />
       ml
-      <label for="amountCoffee">kahvin määrä</label>
-      <output for="amountCoffee">{0.06 * number1}</output>     
+
+      <label htmlFor="amountCoffee">Kahvin määrä</label>
+      <output htmlFor="amountCoffee">{calculateCoffeeAmount()}</output>
       g
     </div>
   );
