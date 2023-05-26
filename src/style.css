@@ -1,14 +1,22 @@
 body {
-    font-size: 1.5em;
-    line-height: 1.6;
-    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.5;
+    font-weight: 1000;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #222;
+    background-color:thistle;
+    
 }
 
-dl {
-  margin: 40px auto;
-  width: 300px;
+div {
+  width: 237px;
+  margin: 260px auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
 p,

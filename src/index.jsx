@@ -8,23 +8,14 @@ function App() {
   const [number2, setNumber2] = React.useState();
 
   return (
-    <dl>
-      <dt>
-        <input value={number1} onChange={event => setNumber1(event.target.value)} />
-        ml
-      </dt>
-      <dd>vettä</dd>
-      <dt>
-        <span>{0.06 * number1}</span>
-        g
-      </dt>
-      <dd>kahvia</dd>
-      <dt>
-      <span>{number1}</span>
+    <div>
+      <label for="amountWater">veden määrä</label>
+      <input name="amountWater" value={number1} onChange={event => setNumber1(event.target.value)} />
       ml
-      </dt>
-      <dd>vettä</dd>
-    </dl>
+      <label for="amountCoffee">kahvin määrä</label>
+      <output for="amountCoffee">{0.06 * number1}</output>     
+      g
+    </div>
   );
 }
 
