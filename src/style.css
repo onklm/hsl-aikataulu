@@ -1,18 +1,26 @@
-body{
-  font-family: 'Varela Round';
-
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: white;
+body {
+    font-size: 1.5em;
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
 }
 
-h1 {
-  color: black;
-  font-size: 40vh;
+dl {
+  margin: 40px auto;
+  width: 300px;
+}
+
+p,
+dt {
+    font-weight: bold;
+}
+
+dl,
+dd {
+    font-size: 1rem;
+}
+
+dd {
+    margin-bottom: 1em;
 }
