@@ -14,19 +14,16 @@ div {
  
 }
 
-
-
-
-
 input {
-  width: 40px;
+  width: 50px;
   
 }
 
 label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 30px;    
+  font-weight: 30px;  
+ 
   
 } 
 
