@@ -1,36 +1,36 @@
 body {
-    font-size: 1em;
-    line-height: 1.5;
-    font-weight: 1000;
-    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #222;
-    background-color:thistle;
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 1000;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color:thistle;
 
-    
+  
 }
 
 div {
-  width: 237;
-  margin: 260px auto;
+width: 237;
+margin: 260px auto;
 }
 
 label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 600;
 }
 
 p,
 dt {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 dl,
 dd {
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
 dd {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
