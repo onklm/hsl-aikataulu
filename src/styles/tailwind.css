@@ -2,6 +2,8 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.big-text
+
 .custom-shadow {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -11,7 +13,7 @@
     --lightGray: #e0e0e0; 
   }
   .bg-deepBlue {
-    background-color: #004d9f; /* tai mikä tahansa sinisen sävy, jonka haluat */
+    background-color: #004d9f; 
   }
   .text-white {
     color: #FFFFFF;

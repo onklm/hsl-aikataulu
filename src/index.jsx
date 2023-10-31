@@ -14,7 +14,7 @@ function App() {
       stop(id: "${STOP_ID}") {
         name
         stoptimesWithoutPatterns(numberOfDepartures: 3) {
-          scheduledArrival
+          realtimeDeparture
           trip {
             route {
               shortName
@@ -66,25 +66,27 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-deepBlue text-white">
-      <div className="container mx-auto p-5 text-center">
-        <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-          {schedule.name.replace('Leppävaaran asema', '')}
-        </h1>
+    <div className="min-h-screen bg-blue-800 text-white">
+      <div className="text-left p-4 ml-auto">
+        <div className="flex justify-between items-center mb-6">
+          <div className="text-6xl">
         
-        <table className="w-full border-collapse">
+          </div>
+        </div>
+
+        <table className="w-full border-collapse mt-4">
           <thead>
             <tr>
-
             </tr>
           </thead>
           <tbody>
             {schedule.stoptimesWithoutPatterns.map((stoptime, index) => (
               <tr key={index}>
-                <td className="p-2 border-b border-white text-xl md:text-8xl">{stoptime.trip.route.shortName}</td>
-                <td className="p-2 border-b border-white text-xl md:text-7xl">{stoptime.headsign}</td>
-                <td className="p-2 border-b border-white text-xl md:text-8xl">
-                  <span className="pr-1">{formatTime(stoptime.scheduledArrival)}</span>
+                <td className="p-2 border-b border-white text-xl md:text-6xl text-left">{stoptime.trip.route.shortName}</td> {/* Lisätty text-left luokka tähän */}
+                <td className="p-2 border-b border-white text-xl md:text-4xl text-left">{stoptime.headsign}</td> {/* Lisätty text-left luokka tähän */}
+                <td className="p-2 border-b border-white text-xl md:text-8xl text-left">{/* Laituri/laiturit tiedot tähän */}</td> {/* Lisätty text-left luokka tähän */}
+                <td className="p-2 border-b border-white text-xl md:text-6xl text-left">
+                  <span className="pr-1">{formatTime(stoptime.realtimeDeparture)}</span>
                 </td>
               </tr>
             ))}
