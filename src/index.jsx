@@ -47,11 +47,12 @@ function App() {
   }, []);
 
   function formatTime(seconds) {
-    const date = new Date((seconds + 2 * 3600) * 1000); // Lisätään 2 tuntia sekunteina
-    const hours = date.getUTCHours(); // Käytä getUTCHours, jotta et saa paikallisen ajan tuntia
-    const minutes = date.getUTCMinutes(); // Käytä getUTCMinutes, jotta et saa paikallisen ajan minuuttia
-    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+    const date = new Date(seconds * 1000);
+    const helsinkiOffset = date.getTimezoneOffset() + 120; // Helsingin aikavyöhyke on UTC+2
+    date.setMinutes(date.getMinutes() + helsinkiOffset);
+    return date.toISOString().substring(11, 16);
   }
+  
   
 
   if (loading) {
