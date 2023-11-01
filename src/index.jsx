@@ -47,11 +47,12 @@ function App() {
   }, []);
 
   function formatTime(seconds) {
-    const date = new Date(seconds * 1000);
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
+    const date = new Date((seconds + 2 * 3600) * 1000); // Lisätään 2 tuntia sekunteina
+    const hours = date.getUTCHours(); // Käytä getUTCHours, jotta et saa paikallisen ajan tuntia
+    const minutes = date.getUTCMinutes(); // Käytä getUTCMinutes, jotta et saa paikallisen ajan minuuttia
     return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
+  
 
   if (loading) {
     return <div>Loading...</div>;
