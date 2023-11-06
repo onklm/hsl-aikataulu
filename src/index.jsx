@@ -6,6 +6,8 @@ import './styles/tailwind.css';
 import { Clock } from './Clock';
 import { fetchSchedule } from './apiClient';
 
+import { formatDepartureTime } from './formatTime';
+
 
 function App() {
   const [schedule, setSchedule] = useState(null);
@@ -29,13 +31,6 @@ function App() {
 
     getSchedule();
   }, []);
-
-  function formatTime(seconds) {
-    const date = new Date(seconds * 1000);
-    const helsinkiOffset = date.getTimezoneOffset() + 120; // Helsingin aikavyöhyke on UTC+2
-    date.setMinutes(date.getMinutes() + helsinkiOffset);
-    return date.toISOString().substring(11, 16);
-  }
 
   if (loading) {
     return <div className="mt-10">Loading...</div>;
@@ -74,7 +69,7 @@ function App() {
                 <td className="p-2 border-b border-white text-6xl">{stoptime.trip.route.shortName}</td>
                 <td className="p-2 border-b border-white text-4xl">{stoptime.headsign}</td>
                 <td className="p-2 border-b border-white text-6xl text-right">
-                  {formatTime(stoptime.realtimeDeparture)}
+                  {formatDepartureTime(stoptime.realtimeDeparture)}
                 </td>
               </tr>
             ))}
