@@ -4,7 +4,7 @@ export async function fetchSchedule(stopId) {
   const query = `{
     stop(id: "${stopId}") {
       name
-      stoptimesWithoutPatterns(numberOfDepartures: 3) {
+      stoptimesWithoutPatterns(numberOfDepartures: 5) {
         realtimeDeparture
         trip {
           route {
