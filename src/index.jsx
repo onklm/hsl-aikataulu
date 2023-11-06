@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+
 import './styles/tailwind.css';
+
 import {Clock} from './Clock';
+import { fetchSchedule } from './apiClient';
+
 
 function App() {
   const [schedule, setSchedule] = useState(null);
@@ -9,42 +13,21 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const ENDPOINT = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
     const STOP_ID = 'HSL:2112401';
-    const query = `{
-      stop(id: "${STOP_ID}") {
-        name
-        stoptimesWithoutPatterns(numberOfDepartures: 3) {
-          realtimeDeparture
-          trip {
-            route {
-              shortName
-            }
-          }
-          headsign
-        }
-      }  
-    }`;
 
-    fetch(ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'digitransit-subscription-key': '236f334fa2644be08da8c3239c89fb3d',
-      },
-      body: JSON.stringify({ query })
-    })
-    .then(response => response.json())
-    .then(data => {
-      setSchedule(data.data.stop);
-      setLoading(false);
-    })
-    .catch(error => {
-      console.error('Error fetching schedule:', error);
-      setError('Failed to fetch schedule');
-      setLoading(false);
-    });
+    async function getSchedule() {
+      try {
+        const data = await fetchSchedule(STOP_ID);
+        setSchedule(data.data.stop);
+      } catch (error) {
+        console.error('Error fetching schedule:', error);
+        setError('Failed to fetch schedule');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getSchedule();
   }, []);
 
   function formatTime(seconds) {
