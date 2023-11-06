@@ -8,7 +8,6 @@ import { fetchSchedule } from './apiClient';
 
 import { formatDepartureTime } from './formatTime';
 
-
 function App() {
   const [schedule, setSchedule] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,22 +15,34 @@ function App() {
 
   useEffect(() => {
     const STOP_ID = 'HSL:2112401';
+    let intervalId = null; // Tallentaa intervalId:n myöhempää käyttöä varten
 
     async function getSchedule() {
       try {
         const data = await fetchSchedule(STOP_ID);
         setSchedule(data.data.stop);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching schedule:', error);
         setError('Failed to fetch schedule');
-      } finally {
         setLoading(false);
       }
     }
 
     getSchedule();
+
+    // Aseta päivitys tapahtumaan joka 15 sekuntti
+    intervalId = setInterval(getSchedule, 15000);
+
+    // Puhdistusfunktio, joka suoritetaan, kun komponentti poistetaan DOM:sta
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
   }, []);
 
+  // Lataus, virhe ja tietojen tarkastelu
   if (loading) {
     return <div className="mt-10">Loading...</div>;
   }
