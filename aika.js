@@ -1,26 +1,27 @@
-function formatDepartureTime(secondsSinceMidnight) {
-    // Nykyhetken määrittäminen
-    const now = new Date();
-    const secondsSinceMidnightNow = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-  
-    // Lähtöaika sekunteina nyt-hetkestä
-    const departureInSeconds = secondsSinceMidnight - secondsSinceMidnightNow;
-  
-    // Lähtöaika on alle 10 minuutin päästä
-    if (departureInSeconds < 600) { // 10 minuuttia * 60 sekuntia
-      return `${Math.max(Math.round(departureInSeconds / 60), 0)} min`;
-    } else {
-      // Muussa tapauksessa muunnetaan sekunnit tunneiksi ja minuuteiksi
-      const hours = Math.floor(secondsSinceMidnight / 3600);
-      const minutes = Math.floor((secondsSinceMidnight % 3600) / 60);
-  
-      // Lisätään johtava nolla tarvittaessa
-      const formattedHours = hours.toString().padStart(2, '0');
-      const formattedMinutes = minutes.toString().padStart(2, '0');
-  
-      return `${formattedHours}:${formattedMinutes}`;
-    }
+// In formatTime.js
+export function formatDepartureTime(departure, isRealtime) {
+  // Choose the correct departure time based on the realtime flag
+  const departureTimeInSeconds = isRealtime ? departure.realtimeDeparture : departure.scheduledDeparture;
+
+  // Calculate hours and minutes from seconds
+  const hours = Math.floor(departureTimeInSeconds / 3600);
+  const minutes = Math.floor((departureTimeInSeconds % 3600) / 60);
+
+  // Format time for display
+  const formattedTime = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
+
+  // Get the current time in seconds since midnight
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const secondsSinceMidnight = (now - midnight) / 1000;
+
+  // Calculate the time difference in minutes
+  const timeDifference = (departureTimeInSeconds - secondsSinceMidnight) / 60;
+
+  // Check if departure is less than 10 minutes away
+  if (timeDifference < 10 && timeDifference > 0) { // Less than 10 minutes and in the future
+    return `~${Math.floor(timeDifference)} min`;
+  } else {
+    return formattedTime;
   }
-  
-  // Esimerkiksi jos API palauttaa 43500 sekuntia (12:05pm)
-  console.log(formatDepartureTime(39700));
+}
