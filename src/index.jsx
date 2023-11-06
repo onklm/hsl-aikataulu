@@ -1,31 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './styles/tailwind.css';
-
-function Clock() {
-  const [time, setTime] = useState(new Date());
-
-  useEffect(() => {
-    const timerID = setInterval(() => tick(), 1000);
-
-    return function cleanup() {
-      clearInterval(timerID);
-    };
-  }, []);
-
-  function tick() {
-    setTime(new Date());
-  }
-
-  return (
-    <div className="fixed top-0 right-0 m-4 p-4 bg-white text-black rounded shadow-lg text-4xl">
-      {time.toLocaleTimeString('fi-FI', { hour: '2-digit', minute: '2-digit' })}
-    </div>
-  );
-}
-
-
-
+import {Clock} from './Clock';
 
 function App() {
   const [schedule, setSchedule] = useState(null);
@@ -90,15 +66,17 @@ function App() {
     return <div className="mt-10">No schedule available</div>;
   }
 
+  // Tämä osa on nyt korjattu ja sijoitettu oikein
   return (
-    <div className="min-h-screen bg-blue-800 text-white">
-      <div className="container mx-auto mr-0 text-left p-4">
-        <div className="flex justify-between items-center mb-6">
-          {/* Lisätty Clock komponentti oikeaan yläkulmaan */}
-          <div className="text-6xl"></div>
-          <Clock />
-        </div>
+    <div className="min-h-screen bg-blue-800 text-white flex flex-col">
+     <header className="p-0 flex justify-between items-center shadow-md">
+  <span className="text-xl font-bold"></span>
+  <div className=""> {/* Lisätty responsive fontti-koko */}
+    <Clock />
+  </div>
+</header>
 
+      <div className="flex-grow container mx-auto p-4">
         <table className="w-full border-collapse mt-4">
           <thead>
             <tr></tr>
