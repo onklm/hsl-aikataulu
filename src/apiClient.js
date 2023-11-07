@@ -5,6 +5,8 @@ export async function fetchSchedule(stopId) {
     stop(id: "${stopId}") {
       name
       stoptimesWithoutPatterns(numberOfDepartures: 5) {
+        realtime
+        scheduledDeparture
         realtimeDeparture
         trip {
           route {

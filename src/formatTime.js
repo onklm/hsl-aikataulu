@@ -1,5 +1,14 @@
+export function getDepartureTime(stoptime) {
+  if (stoptime.realtime){
+    return formatDepartureTime(stoptime.realtimeDeparture, true);
+  }
+
+  return formatDepartureTime(stoptime.scheduledDeparture);
+}
+
+
 // Tiedostossa formatTime.js
-export function formatDepartureTime(secondsSinceMidnight) {
+ function formatDepartureTime(secondsSinceMidnight, realtime = false) {
   // Nykyhetken määrittäminen
   const now = new Date();
   const secondsSinceMidnightNow = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();

@@ -6,7 +6,7 @@ import './styles/tailwind.css';
 import { Clock } from './Clock';
 import { fetchSchedule } from './apiClient';
 
-import { formatDepartureTime } from './formatTime';
+import { getDepartureTime } from './formatTime';
 
 function App() {
   const [schedule, setSchedule] = useState(null);
@@ -55,6 +55,7 @@ function App() {
     return <div className="mt-10">No schedule available</div>;
   }
 
+
   // Tämä osa on nyt korjattu ja sijoitettu oikein
   return (
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
@@ -80,7 +81,7 @@ function App() {
                 <td className="p-2 border-b border-white text-6xl">{stoptime.trip.route.shortName}</td>
                 <td className="p-2 border-b border-white text-4xl">{stoptime.headsign}</td>
                 <td className="p-2 border-b border-white text-6xl text-right">
-                  {formatDepartureTime(stoptime.realtimeDeparture)}
+                  {getDepartureTime(stoptime)}
                 </td>
               </tr>
             ))}
