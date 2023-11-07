@@ -18,7 +18,7 @@ export function getDepartureTime(stoptime) {
 
   // Lähtöaika on alle 10 minuutin päästä
   if (departureInSeconds < 600) { // 10 minuuttia * 60 sekuntia
-    return `~${Math.max(Math.round(departureInSeconds / 60), 0)} min`;
+    return `${realtime ? '' : '~'}${Math.max(Math.round(departureInSeconds / 60), 0)} min`;
   } else {
     // Muussa tapauksessa muunnetaan sekunnit tunneiksi ja minuuteiksi
     const hours = Math.floor(secondsSinceMidnight / 3600);
