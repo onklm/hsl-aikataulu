@@ -9,17 +9,18 @@ import { fetchSchedule } from './apiClient';
 import { getDepartureTime } from './formatTime';
 
 function App() {
+  const [stopId, setStopId] = useState('HSL:2112401');
+  const [activeMenuItem, setActiveMenuItem] = useState('HSL:2112401'); // Lisätty aktiivisen valikkokohdan tila
   const [schedule, setSchedule] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const STOP_ID = 'HSL:2112401';
-    let intervalId = null; // Tallentaa intervalId:n myöhempää käyttöä varten
+    let intervalId = null;
 
     async function getSchedule() {
       try {
-        const data = await fetchSchedule(STOP_ID);
+        const data = await fetchSchedule(stopId);
         setSchedule(data.data.stop);
         setLoading(false);
       } catch (error) {
@@ -30,17 +31,25 @@ function App() {
     }
 
     getSchedule();
-
-    // Aseta päivitys tapahtumaan joka 15 sekuntti
     intervalId = setInterval(getSchedule, 15000);
 
-    // Puhdistusfunktio, joka suoritetaan, kun komponentti poistetaan DOM:sta
     return () => {
       if (intervalId) {
         clearInterval(intervalId);
       }
     };
-  }, []);
+  }, [stopId]);
+
+  const handleMenuClick = (newStopId) => {
+    setStopId(newStopId);
+    setActiveMenuItem(newStopId); // Päivittää aktiivisen valikkokohdan
+  };
+
+  const getMenuItemClass = (id) => {
+    return `px-4 py-2 text-sm font-semibold rounded-full ${
+      id === activeMenuItem ? 'text-black bg-white' : 'text-white hover:bg-gray-200'
+    }`;
+  };
 
   // Lataus, virhe ja tietojen tarkastelu
   if (loading) {
@@ -60,11 +69,20 @@ function App() {
   return (
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
       <header className="p-0 flex justify-between items-center shadow-md">
+        <nav className="flex">
+          <a href="#" onClick={() => handleMenuClick('HSL:2112401')} className={getMenuItemClass('HSL:2112401')}>sello(15)</a>
+          <a href="#" onClick={() => handleMenuClick('HSL:2112402')} className={getMenuItemClass('HSL:2112402')}>sello(juna)</a>
+          <a href="#" onClick={() => handleMenuClick('HSL:2112403')} className={getMenuItemClass('HSL:2112403')}>otaniemi(15)</a>
+          <a href="#" onClick={() => handleMenuClick('HSL:2112404')} className={getMenuItemClass('HSL:2112404')}>koti(113)</a>
+        </nav>
+
         <span className="text-xl font-bold"></span>
-        <div className=""> {/* Lisätty responsive fontti-koko */}
+        <div className="">
           <Clock />
         </div>
       </header>
+
+
 
       <div className="flex-grow container mx-auto p-4">
         <table className="w-full border-collapse mt-4">
