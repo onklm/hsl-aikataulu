@@ -24,21 +24,12 @@ function App() {
         console.log('Fetching schedule...');
         const data = await fetchSchedule(stopId, stopType).catch(console.error);
         console.log('Data received:', data);
-        
+
         if (data) {
-          if (stopId && data.data && data.data.stop) {
-            console.log('Setting schedule with stop data');
-            setSchedule(data.data.stop);
-          } else if (stopType && data.data && data.data.station) {
-            console.log('Setting schedule with station data');
-            setSchedule(data.data.station);
-          } else {
-            console.log('No valid stopId or stopType provided, or missing data fields');
-          }
+          setSchedule(data.data[stopType]);
         } else {
           console.log('No data received from fetchSchedule');
         }
-        
 
         setLoading(false);
       } catch (error) {
@@ -65,7 +56,9 @@ function App() {
   };
 
   const getMenuItemClass = (id) => {
-    return `px-4 py-2 text-sm font-semibold rounded-full ${id === activeMenuItem ? 'text-black bg-white' : 'text-white hover:bg-gray-200'
+    return `px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-full ${id === activeMenuItem
+        ? 'bg-white text-blue-800' // Active menu item
+        : 'text-white hover:bg-gray-200 hover:text-blue-800' // Inactive menu item
       }`;
   };
 
@@ -86,7 +79,7 @@ function App() {
   // Tämä osa on nyt korjattu ja sijoitettu oikein
   return (
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
-      <header className="p-0 flex justify-between items-center shadow-md">
+      <header className="p-4 flex justify-between items-center shadow-md">
         <nav className="flex">
           <a href="#" onClick={() => handleMenuClick('HSL:2112401')} className={getMenuItemClass('HSL:2112401')}>sello(15)</a>
           <a href="#" onClick={() => handleMenuClick('HSL:2000202', 'station')} className={getMenuItemClass('HSL:2000202')}>sello(juna)</a>
@@ -100,9 +93,7 @@ function App() {
         </div>
       </header>
 
-
-
-      <div className="flex-grow container mx-auto p-4">
+      <div className="table-responsive">
         <table className="w-full border-collapse mt-4">
           <thead>
             <tr>
@@ -114,9 +105,9 @@ function App() {
           <tbody>
             {schedule.stoptimesWithoutPatterns.map((stoptime, index) => (
               <tr key={index}>
-                <td className="p-2 border-b border-white text-6xl">{stoptime.trip.route.shortName}</td>
-                <td className="p-2 border-b border-white text-4xl">{stoptime.headsign}</td>
-                <td className="p-2 border-b border-white text-6xl text-right">
+                <td className="p-2 border-b border-white text-4xl lg:text-6xl">{stoptime.trip.route.shortName}</td>
+                <td className="p-2 border-b border-white md:text-2xl lg:text-4xl">{stoptime.headsign}</td>
+                <td className="p-2 border-b border-white text-4xl lg:text-6xl text-right">
                   {getDepartureTime(stoptime)}
                 </td>
               </tr>
