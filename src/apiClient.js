@@ -1,8 +1,8 @@
 const ENDPOINT = 'https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql';
 
-export async function fetchSchedule(stopId) {
+export async function fetchSchedule(stopId, stopType = 'stop') {
   const query = `{
-    stop(id: "${stopId}") {
+    ${stopType}(id: "${stopId}") {
       name
       stoptimesWithoutPatterns(numberOfDepartures: 5) {
         realtime
@@ -17,6 +17,8 @@ export async function fetchSchedule(stopId) {
       }
     }  
   }`;
+
+console.log(query);
 
   const response = await fetch(ENDPOINT, {
     method: 'POST',

@@ -10,6 +10,7 @@ import { getDepartureTime } from './formatTime';
 
 function App() {
   const [stopId, setStopId] = useState('HSL:2112401');
+  const [stopType, setStopType] = useState('stop');
   const [activeMenuItem, setActiveMenuItem] = useState('HSL:2112401'); // Lisätty aktiivisen valikkokohdan tila
   const [schedule, setSchedule] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -20,8 +21,25 @@ function App() {
 
     async function getSchedule() {
       try {
-        const data = await fetchSchedule(stopId);
-        setSchedule(data.data.stop);
+        console.log('Fetching schedule...');
+        const data = await fetchSchedule(stopId, stopType).catch(console.error);
+        console.log('Data received:', data);
+        
+        if (data) {
+          if (stopId && data.data && data.data.stop) {
+            console.log('Setting schedule with stop data');
+            setSchedule(data.data.stop);
+          } else if (stopType && data.data && data.data.station) {
+            console.log('Setting schedule with station data');
+            setSchedule(data.data.station);
+          } else {
+            console.log('No valid stopId or stopType provided, or missing data fields');
+          }
+        } else {
+          console.log('No data received from fetchSchedule');
+        }
+        
+
         setLoading(false);
       } catch (error) {
         console.error('Error fetching schedule:', error);
@@ -38,17 +56,17 @@ function App() {
         clearInterval(intervalId);
       }
     };
-  }, [stopId]);
+  }, [stopId, stopType]);
 
-  const handleMenuClick = (newStopId) => {
+  const handleMenuClick = (newStopId, newStopType = 'stop') => {
     setStopId(newStopId);
+    setStopType(newStopType);
     setActiveMenuItem(newStopId); // Päivittää aktiivisen valikkokohdan
   };
 
   const getMenuItemClass = (id) => {
-    return `px-4 py-2 text-sm font-semibold rounded-full ${
-      id === activeMenuItem ? 'text-black bg-white' : 'text-white hover:bg-gray-200'
-    }`;
+    return `px-4 py-2 text-sm font-semibold rounded-full ${id === activeMenuItem ? 'text-black bg-white' : 'text-white hover:bg-gray-200'
+      }`;
   };
 
   // Lataus, virhe ja tietojen tarkastelu
@@ -71,9 +89,9 @@ function App() {
       <header className="p-0 flex justify-between items-center shadow-md">
         <nav className="flex">
           <a href="#" onClick={() => handleMenuClick('HSL:2112401')} className={getMenuItemClass('HSL:2112401')}>sello(15)</a>
-          <a href="#" onClick={() => handleMenuClick('HSL:2112402')} className={getMenuItemClass('HSL:2112402')}>sello(juna)</a>
-          <a href="#" onClick={() => handleMenuClick('HSL:2112403')} className={getMenuItemClass('HSL:2112403')}>otaniemi(15)</a>
-          <a href="#" onClick={() => handleMenuClick('HSL:2112404')} className={getMenuItemClass('HSL:2112404')}>koti(113)</a>
+          <a href="#" onClick={() => handleMenuClick('HSL:2000202', 'station')} className={getMenuItemClass('HSL:2000202')}>sello(juna)</a>
+          <a href="#" onClick={() => handleMenuClick('HSL:2222406')} className={getMenuItemClass('HSL:2222406')}>otaniemi(15)</a>
+          <a href="#" onClick={() => handleMenuClick('HSL:2112208')} className={getMenuItemClass('HSL:2112208')}>koti(113)</a>
         </nav>
 
         <span className="text-xl font-bold"></span>
