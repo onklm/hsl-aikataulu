@@ -4,7 +4,7 @@ export async function fetchSchedule(stopId, stopType = 'stop') {
   const query = `{
     ${stopType}(id: "${stopId}") {
       name
-      stoptimesWithoutPatterns(numberOfDepartures: 5) {
+      stoptimesWithoutPatterns(numberOfDepartures: 8, omitNonPickups:true) {
         realtime
         scheduledDeparture
         realtimeDeparture
@@ -18,7 +18,7 @@ export async function fetchSchedule(stopId, stopType = 'stop') {
     }  
   }`;
 
-console.log(query);
+
 
   const response = await fetch(ENDPOINT, {
     method: 'POST',
@@ -34,6 +34,19 @@ console.log(query);
     throw new Error('Network response was not ok');
   }
 
-  return response.json();
+  const data = await response.json();
+  
+  // Tarkistetaan, että saimme datan ja että se sisältää pysähtymisajat
+  if (data.data && data.data[stopType] && data.data[stopType].stoptimesWithoutPatterns) {
+    // Suodatetaan pois Kirkkonummen juna
+    const filteredStoptimes = data.data[stopType].stoptimesWithoutPatterns.filter(
+      stoptime => stoptime.headsign !== 'Kirkkonummi'
+    );
+
+    // Asetetaan data.data[stopType].stoptimesWithoutPatterns olemaan suodatettu lista
+    data.data[stopType].stoptimesWithoutPatterns = filteredStoptimes;
+  }
+
+  return data;
 }
 
