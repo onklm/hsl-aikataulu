@@ -78,6 +78,7 @@ function App() {
 
   // Tämä osa on nyt korjattu ja sijoitettu oikein
   return (
+    
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
       <header className="p-4 flex justify-between items-center shadow-md">
         <nav className="flex">
@@ -106,7 +107,7 @@ function App() {
             {schedule.stoptimesWithoutPatterns.map((stoptime, index) => (
               <tr key={index}>
                 <td className="p-2 border-b border-white text-4xl lg:text-6xl">{stoptime.trip.route.shortName}</td>
-                <td className="p-2 border-b border-white md:text-2xl lg:text-4xl">{stoptime.headsign}</td>
+                <td className="p-2 border-b border-white lg:text-4xl">{stoptime.headsign}</td>
                 <td className="p-2 border-b border-white text-4xl lg:text-6xl text-right">
                   {getDepartureTime(stoptime)}
                 </td>
