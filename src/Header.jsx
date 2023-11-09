@@ -35,14 +35,17 @@ export function Header() {
               </svg>
             </div>
             <ul className="flex flex-col items-center justify-between min-h-[250px]">
-              <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/about">About</a>
+            <li className="border-b border-gray-400 my-8  text-black">
+                <a href="/about">sello(15)</a>
+                </li>
+              <li className="border-b border-gray-400 my-8  text-black">
+                <a href="/about">sello(juna)</a>
               </li>
-              <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/portfolio">Portfolio</a>
+              <li className="border-b border-gray-400 my-8  text-black">
+                <a href="/portfolio">otaniemi(15)</a>
               </li>
-              <li className="border-b border-gray-400 my-8 uppercase">
-                <a href="/contact">Contact</a>
+              <li className="border-b border-gray-400 my-8  text-black">
+                <a href="/contact">koti(113)</a>
               </li>
             </ul>
           </div>
@@ -68,5 +71,7 @@ export function Header() {
       }
     `}</style>
     </div>
+
+    
   );
 }

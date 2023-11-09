@@ -10,6 +10,7 @@ import { fetchSchedule } from './apiClient';
 
 import { getDepartureTime } from './formatTime';
 
+
 function App() {
   const [stopId, setStopId] = useState('HSL:2112401');
   const [stopType, setStopType] = useState('stop');
