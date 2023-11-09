@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import './styles/tailwind.css';
 
+import { Header } from './Header';
+
 import { Clock } from './Clock';
 import { fetchSchedule } from './apiClient';
 
@@ -78,21 +80,9 @@ function App() {
 
   // Tämä osa on nyt korjattu ja sijoitettu oikein
   return (
-    
-    <div className="min-h-screen bg-blue-800 text-white flex flex-col">
-      <header className="p-4 flex justify-between items-center shadow-md">
-        <nav className="flex">
-          <a href="#" onClick={() => handleMenuClick('HSL:2112401')} className={getMenuItemClass('HSL:2112401')}>sello(15)</a>
-          <a href="#" onClick={() => handleMenuClick('HSL:2000202', 'station')} className={getMenuItemClass('HSL:2000202')}>sello(juna)</a>
-          <a href="#" onClick={() => handleMenuClick('HSL:2222406')} className={getMenuItemClass('HSL:2222406')}>otaniemi(15)</a>
-          <a href="#" onClick={() => handleMenuClick('HSL:2112208')} className={getMenuItemClass('HSL:2112208')}>koti(113)</a>
-        </nav>
 
-        <span className="text-xl font-bold"></span>
-        <div className="">
-          <Clock />
-        </div>
-      </header>
+    <div className="min-h-screen bg-blue-800 text-white flex flex-col">
+      <Header />
 
       <div className="table-responsive">
         <table className="w-full border-collapse mt-4">
