@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Header() {
+export function Header({ handleMenuClick, getMenuItemClass }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
@@ -35,17 +35,21 @@ export function Header() {
               </svg>
             </div>
             <ul className="flex flex-col items-center justify-between min-h-[250px]">
-            <li className="border-b border-gray-400 my-8  text-black">
-                <a href="/about">sello(15)</a>
-                </li>
               <li className="border-b border-gray-400 my-8  text-black">
-                <a href="/about">sello(juna)</a>
+                <a href="#" onClick={() => handleMenuClick('HSL:2212401')}
+                  className={getMenuItemClass('HSL:2112401')}>sello(15)</a>
               </li>
               <li className="border-b border-gray-400 my-8  text-black">
-                <a href="/portfolio">otaniemi(15)</a>
+                <a href="#" onClick={() => handleMenuClick('HSL:2000202', 'station')}
+                  className={getMenuItemClass('HSL:2000202')}>sello(juna)</a>
               </li>
               <li className="border-b border-gray-400 my-8  text-black">
-                <a href="/contact">koti(113)</a>
+                <a href="#" onClick={() => handleMenuClick('HSL:2222406')}
+                  className={getMenuItemClass('HSL:2222406')}>otaniemi(15)</a>
+              </li>
+              <li className="border-b border-gray-400 my-8  text-black">
+                <a href="#" onClick={() => handleMenuClick('HSL:2112208')}
+                  className={getMenuItemClass('HSL:2112208')}>koti(113)</a>
               </li>
             </ul>
           </div>
@@ -72,6 +76,6 @@ export function Header() {
     `}</style>
     </div>
 
-    
+
   );
 }

@@ -83,7 +83,10 @@ function App() {
   return (
 
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
-      <Header />
+      <Header 
+            handleMenuClick={handleMenuClick} 
+            getMenuItemClass={getMenuItemClass} 
+          />
 
       <div className="table-responsive">
         <table className="w-full border-collapse mt-4">
