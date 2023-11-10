@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-
 import './styles/tailwind.css';
-
 import { Header } from './Header';
-
 import { Clock } from './Clock';
 import { fetchSchedule } from './apiClient';
-
 import { getDepartureTime } from './formatTime';
 
 
@@ -61,7 +57,7 @@ function App() {
   const getMenuItemClass = (id) => {
     return `px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-full ${id === activeMenuItem
         ? 'bg-white text-blue-800' // Active menu item
-        : 'text-white hover:bg-gray-200 hover:text-blue-800' // Inactive menu item
+        : 'text-black hover:bg-gray-200 hover:text-blue-800' // Inactive menu item
       }`;
   };
 
@@ -84,9 +80,9 @@ function App() {
 
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
       <Header 
-            handleMenuClick={handleMenuClick} 
-            getMenuItemClass={getMenuItemClass} 
-          />
+        handleMenuClick={handleMenuClick} 
+        getMenuItemClass={getMenuItemClass} 
+      />
 
       <div className="table-responsive">
         <table className="w-full border-collapse mt-4">
@@ -114,4 +110,5 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);

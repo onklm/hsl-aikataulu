@@ -37,10 +37,10 @@ export async function fetchSchedule(stopId, stopType = 'stop') {
   const data = await response.json();
   
   // Tarkistetaan, että saimme datan ja että se sisältää pysähtymisajat
-  if (data.data && data.data[stopType] && data.data[stopType].stoptimesWithoutPatterns) {
+  if (data.data && data.data[stopType] === 'station' && data.data[stopType].stoptimesWithoutPatterns) {
     // Suodatetaan pois Kirkkonummen juna
     const filteredStoptimes = data.data[stopType].stoptimesWithoutPatterns.filter(
-      stoptime => stoptime.headsign !== 'Kirkkonummi'
+      stoptime => stoptime.headsign === 'Helsinki'
     );
 
     // Asetetaan data.data[stopType].stoptimesWithoutPatterns olemaan suodatettu lista
