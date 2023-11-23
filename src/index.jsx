@@ -3,7 +3,6 @@ import { createRoot }  from 'react-dom/client';
 
 import './styles/tailwind.css';
 import { Header } from './Header';
-import { Clock } from './Clock';
 import { fetchSchedule } from './apiClient';
 import { getDepartureTime } from './formatTime';
 
@@ -52,17 +51,16 @@ function App() {
   const handleMenuClick = (newStopId, newStopType = 'stop') => {
     setStopId(newStopId);
     setStopType(newStopType);
-    setActiveMenuItem(newStopId); // Päivittää aktiivisen valikkokohdan
+    setActiveMenuItem(newStopId);
   };
 
   const getMenuItemClass = (id) => {
     return `px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-full ${id === activeMenuItem
-        ? 'bg-white text-blue-800' // Active menu item
-        : 'text-black hover:bg-gray-200 hover:text-blue-800' // Inactive menu item
+        ? 'bg-white text-blue-800'
+        : 'text-black hover:bg-gray-200 hover:text-blue-800'
       }`;
   };
 
-  // Lataus, virhe ja tietojen tarkastelu
   if (loading) {
     return <div className="mt-10">Loading...</div>;
   }
@@ -75,10 +73,7 @@ function App() {
     return <div className="mt-10">No schedule available</div>;
   }
 
-
-  // Tämä osa on nyt korjattu ja sijoitettu oikein
   return (
-
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
       <Header
         handleMenuClick={handleMenuClick}
