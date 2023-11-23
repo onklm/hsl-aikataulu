@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Clock } from './Clock';
 
-export function Header() {
+export function Header({ stopId }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  useEffect(() => {
+    setIsNavOpen(false);
+  }, [stopId]);
 
   const menuIcon = () => {
     if (isNavOpen) {
@@ -34,7 +38,7 @@ export function Header() {
         >
           {menuIcon()}
         </button>
-        <div className={`${isNavOpen ? '' : 'hidden'} w-full`} id="navbar-hamburger">
+        <div className={`${isNavOpen ? '' : 'hidden'} w-full`}>
           <ul className="flex flex-col font-medium mt-4 rounded-lg">
             <li>
               <Link
@@ -76,8 +80,5 @@ export function Header() {
         </div>
       </div>
     </nav>
-
-
-
   );
 }
