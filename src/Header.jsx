@@ -1,85 +1,82 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export function Header({ handleMenuClick, getMenuItemClass }) {
+import { Clock } from './Clock';
+
+export function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const menuClick = (stopId, station = 'stop') => {
-    handleMenuClick(stopId, station);
-    setIsNavOpen(false);
+  const menuIcon = () => {
+    if (isNavOpen) {
+      return (
+        <svg className="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="#ffffff" strokeLinecap="round" strokeWidth="2" strokeLinejoin="round" d="M 1,1 l 12,12 M 1,13 l 12,-12" />
+        </svg>
+      );
+    }
+
+    return (
+      <svg className="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h12M1 7h12M1 13h12" />
+      </svg>
+    );
   }
 
   return (
-    <div className="flex items-center justify-between  py-8">
-      <nav>
-        <section className="flex">
-          <div
-            className="space-y-2 ml-4"
-            onClick={() => setIsNavOpen((prev) => !prev)}
-          >
-            <span className="block h-0.5 w-8 animate-pulse bg-white"></span>
-            <span className="block h-0.5 w-8 animate-pulse bg-white"></span>
-            <span className="block h-0.5 w-8 animate-pulse bg-white"></span>
-          </div>
+    <nav className="">
+      <div className="flex flex-wrap items-center justify-between mx-auto p-4">
+        <Clock />
 
-          <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
-            <div
-              className="absolute top-0 right-0 px-8 py-8"
-              onClick={() => setIsNavOpen(false)}
-            >
-              <svg
-                className="h-8 w-8 text-gray-600"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap=""
-                strokeLinejoin="roroundund"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </div>
-            <ul className="flex flex-col items-center justify-between min-h-[250px]">
-              <li className=" my-6  text-black text 2xl">
-                <a href="#" onClick={() => menuClick('HSL:2112401')}
-                  className={getMenuItemClass('HSL:2112401')}>sello(15)</a>
-              </li>
-              <li className=" my-6 text-black">
-                <a href="#" onClick={() => menuClick('HSL:2000202', 'station')}
-                  className={getMenuItemClass('HSL:2000202')}>sello(juna)</a>
-              </li>
-              <li className=" my-6  text-black">
-                <a href="#" onClick={() => menuClick('HSL:2222406')}
-                  className={getMenuItemClass('HSL:2222406')}>otaniemi(15)</a>
-              </li>
-              <li className=" my-6  text-black">
-                <a href="#" onClick={() => menuClick('HSL:2112208')}
-                  className={getMenuItemClass('HSL:2112208')}>koti(113)</a>
-              </li>
-            </ul>
-          </div>
-        </section>
-      </nav>
-      <style>{`
-      .hideMenuNav {
-        display: none;
-      }
-      .showMenuNav {
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background: white;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-      }
-    `}</style>
-    </div>
+        <button
+          type="button"
+          onClick={() => setIsNavOpen((prev) => !prev)}
+          className="inline-flex items-center justify-center p-2 text-sm text-gray-500 rounded-lg"
+        >
+          {menuIcon()}
+        </button>
+        <div className={`${isNavOpen ? '' : 'hidden'} w-full`} id="navbar-hamburger">
+          <ul className="flex flex-col font-medium mt-4 rounded-lg">
+            <li>
+              <Link
+                to="/stop/HSL:2112401"
+                className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black"
+              >Sello (15)</Link>
+            </li>
+            <li>
+              <Link
+                to="/stop/HSL:2222406"
+                className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black"
+              >Otaniemi (15)</Link>
+            </li>
+            <li>
+              <Link
+                to="/stop/HSL:2222603"
+                className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black"
+              >Otaniemi (Metro)</Link>
+            </li>
+            <li>
+              <Link
+                to="/stop/HSL:2222603"
+                className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black"
+              >Kamppi (Metro)</Link>
+            </li>
+            <li>
+              <Link
+                to="/station/HSL:2000202"
+                className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black"
+              >Sello (Juna)</Link>
+            </li>
+            <li>
+              <Link
+                to="/stop/HSL:2112208"
+                className="block py-2 px-3 text-white rounded hover:bg-gray-100 hover:text-black"
+              >Koti (113)</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
 
 
   );
