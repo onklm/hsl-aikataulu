@@ -18,8 +18,6 @@ export async function fetchSchedule(stopId, stopType = 'stop') {
     }
   }`;
 
-
-
   const response = await fetch(ENDPOINT, {
     method: 'POST',
     headers: {
@@ -36,7 +34,7 @@ export async function fetchSchedule(stopId, stopType = 'stop') {
 
   const data = await response.json();
 
-  if (data.data && data.data[stopType] === 'station' && data.data[stopType].stoptimesWithoutPatterns) {
+  if (data.data && stopType === 'station' && data.data[stopType].stoptimesWithoutPatterns) {
     const filteredStoptimes = data.data[stopType].stoptimesWithoutPatterns.filter(
       stoptime => stoptime.headsign === 'Helsinki'
     );
@@ -44,6 +42,6 @@ export async function fetchSchedule(stopId, stopType = 'stop') {
     data.data[stopType].stoptimesWithoutPatterns = filteredStoptimes;
   }
 
-  return data;
+  return data.data;
 }
 
