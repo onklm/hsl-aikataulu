@@ -63,9 +63,9 @@ export function Schedule({ defaultStopId, stopType }) {
           <table className="w-full border-collapse mt-4">
             <thead>
               <tr>
-                <th className="p-2 border-b border-white text-2xl text-left">Linja</th>
-                <th className="p-2 border-b border-white text-2xl text-left">Määränpää</th>
-                <th className="p-2 border-b border-white text-2xl text-right">Aika / min</th>
+                <th className="p-2 border-b border-white text-left text-xl lg:text-2xl">Linja</th>
+                <th className="p-2 border-b border-white text-left text-xl lg:text-2xl">Määränpää</th>
+                <th className="p-2 border-b border-white text-right text-xl lg:text-2xl">Aika / min</th>
               </tr>
             </thead>
             <tbody>
