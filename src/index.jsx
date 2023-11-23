@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot }  from 'react-dom/client';
+
 import './styles/tailwind.css';
 import { Header } from './Header';
 import { Clock } from './Clock';
@@ -79,9 +80,9 @@ function App() {
   return (
 
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
-      <Header 
-        handleMenuClick={handleMenuClick} 
-        getMenuItemClass={getMenuItemClass} 
+      <Header
+        handleMenuClick={handleMenuClick}
+        getMenuItemClass={getMenuItemClass}
       />
 
       <div className="table-responsive">
@@ -110,5 +111,5 @@ function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 root.render(<App />);
