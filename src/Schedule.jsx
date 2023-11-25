@@ -52,7 +52,7 @@ export function Schedule({ defaultStopId, stopType }) {
 
   return (
     <div className="min-h-screen bg-blue-800 text-white flex flex-col">
-      <Header />
+      <Header stopId={stopId} />
 
       {loading ? (
         <div className="flex justify-center items-center h-full mt-10">
@@ -63,9 +63,9 @@ export function Schedule({ defaultStopId, stopType }) {
           <table className="w-full border-collapse mt-4">
             <thead>
               <tr>
-                <th className="p-2 border-b border-white text-2xl text-left">Linja</th>
-                <th className="p-2 border-b border-white text-2xl text-left">Määränpää</th>
-                <th className="p-2 border-b border-white text-2xl text-right">Aika / min</th>
+                <th className="p-2 border-b border-white text-left text-l lg:text-2xl">Linja</th>
+                <th className="p-2 border-b border-white text-left text-l lg:text-2xl">Määränpää</th>
+                <th className="p-2 border-b border-white text-right text-l lg:text-2xl">Aika / min</th>
               </tr>
             </thead>
             <tbody>
